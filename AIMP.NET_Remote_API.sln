@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.NET.RemoteAPI", "AIMP.NET_Remote_API\AIMP.NET.RemoteAPI.csproj", "{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.NET_Remote_API_WinForms_Sample", "AIMP.NET_Remote_API_WinForms_Sample\AIMP.NET_Remote_API_WinForms_Sample.csproj", "{9138F721-92A6-4E72-A757-0D3A68789DFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7FFA44B9-E01C-4091-BEEF-2C6230CE6663}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9138F721-92A6-4E72-A757-0D3A68789DFE}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
