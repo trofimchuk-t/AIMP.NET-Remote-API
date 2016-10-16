@@ -334,17 +334,17 @@ namespace AIMP.NET.RemoteAPI
 
         public void ExecuteOpenFilesDialog()
         {
-            SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FILES);
+            PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FILES);
         }
 
         public void ExecuteOpenFoldersDialog()
         {
-            SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FOLDERS);
+            PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FOLDERS);
         }
 
         public void ExecuteOpenPlaylistsDialog()
         {
-            SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_PLAYLISTS);
+            PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_PLAYLISTS);
         }
 
         public void ShowHide()
@@ -507,6 +507,15 @@ namespace AIMP.NET.RemoteAPI
         private void SendCommand(AimpRemoteNetApi.AimpRemoteCommand commandId)
         {
             Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)commandId, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Вспомогательный метод для отправки post-сообщений плееру с целью вызвать указанную комманду
+        /// </summary>
+        /// <param name="commandId">Идентификатор комманды</param>
+        private void PostCommand(AimpRemoteNetApi.AimpRemoteCommand commandId)
+        {
+            Win32.PostMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)commandId, IntPtr.Zero);
         }
 
         /// <summary>
