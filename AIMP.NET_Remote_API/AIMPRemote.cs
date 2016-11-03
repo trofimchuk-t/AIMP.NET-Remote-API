@@ -430,17 +430,17 @@ namespace AIMP.NET.RemoteAPI
             int sSize = Marshal.SizeOf(sInfo);
             int offset = sSize;
 
-            aimpTrackInfo.Album = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.AlbumLength);
+            aimpTrackInfo.Album = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.AlbumLength);
             offset += sInfo.AlbumLength * sizeof(char);
-            aimpTrackInfo.Artist = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.ArtistLength);
+            aimpTrackInfo.Artist = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.ArtistLength);
             offset += sInfo.ArtistLength * sizeof(char);
-            aimpTrackInfo.Year = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.DateLength);
+            aimpTrackInfo.Year = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.DateLength);
             offset += sInfo.DateLength * sizeof(char);
-            aimpTrackInfo.FileName = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.FileNameLength);
+            aimpTrackInfo.FileName = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.FileNameLength);
             offset += sInfo.FileNameLength * sizeof(char);
-            aimpTrackInfo.Genre = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.GenreLength);
+            aimpTrackInfo.Genre = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.GenreLength);
             offset += sInfo.GenreLength * sizeof(char);
-            aimpTrackInfo.Title = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt32() + offset, sInfo.TitleLength);
+            aimpTrackInfo.Title = Marshal.PtrToStringAuto((IntPtr)AInfo.ToInt64() + offset, sInfo.TitleLength);
             offset += sInfo.TitleLength * sizeof(char);
 
             aimpTrackInfo.Active = sInfo.Active;
