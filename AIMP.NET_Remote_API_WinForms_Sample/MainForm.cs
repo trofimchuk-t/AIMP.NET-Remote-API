@@ -1,5 +1,6 @@
 ﻿using AIMP.NET.RemoteAPI;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -64,7 +65,10 @@ namespace AimpApi_Remote_test
             if (isRegistered != isStarted)
             {
                 if (!isRegistered)
+                {
                     aimp.RegisterNotify();
+                    UpdateInfo();
+                }
 
                 isRegistered = !isRegistered;
             }
@@ -216,23 +220,28 @@ namespace AimpApi_Remote_test
 
         private void btnTryStart_Click(object sender, EventArgs e)
         {
-            Process p = new Process();
-            p.StartInfo.FileName = "AIMP3";
+            // Try to start AIMP v4.0+
+            if (TryStartAimp("AIMP")) return;
+            // Try to start AIMP3
+            if (TryStartAimp("AIMP3")) return;
+
+            MessageBox.Show("The system cannot find the file specified");
+        }
+
+        private bool TryStartAimp(string processName)
+        {
+            var p = new Process();
+            p.StartInfo.FileName = processName;
             try
             {
                 p.Start();
+                return true;
             }
-            catch (Exception ex)
+            catch (Win32Exception)
             {
-                MessageBox.Show(ex.Message);
+                return false;
             }
         }
-
-        private void btnHide_Click(object sender, EventArgs e)
-        {
-            //aimp.ShowHide();
-        }
-
 
         private void chbMute_CheckedChanged(object sender, EventArgs e)
         {
