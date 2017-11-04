@@ -62,7 +62,7 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                int milliseconds = value.Milliseconds;
+                int milliseconds = (int)value.TotalMilliseconds;
                 SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_PLAYER_POSITION,
                     (IntPtr)milliseconds);
             }
