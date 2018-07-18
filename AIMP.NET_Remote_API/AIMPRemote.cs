@@ -1,7 +1,6 @@
 ﻿using AIMP.NET.RemoteAPI.Interop;
 using AIMP.NET.RemoteAPI.RemoteAPI;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -38,11 +37,9 @@ namespace AIMP.NET.RemoteAPI
 
         #region IAimpRemote Implementation
 
-        #region AIMP Properties ===============================================
+        #region AIMP Properties
 
-        /// <summary>
-        /// Свойство, позволяющее узнать длительность текущего трека
-        /// </summary>
+        /// <see cref="IAimpRemote.Duration"/>
         public TimeSpan Duration
         {
             get
@@ -52,9 +49,7 @@ namespace AIMP.NET.RemoteAPI
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить текущую позицию проигрываемого трека
-        /// </summary>
+        /// <see cref="IAimpRemote.Position"/>
         public TimeSpan Position
         {
             get
@@ -65,14 +60,11 @@ namespace AIMP.NET.RemoteAPI
             set
             {
                 int milliseconds = (int)value.TotalMilliseconds;
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_PLAYER_POSITION,
-                    (IntPtr)milliseconds);
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_PLAYER_POSITION, (IntPtr)milliseconds);
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать текущее состояние плеера
-        /// </summary>
+        ///<see cref="IAimpRemote.PlayerState"/>
         public PlayerState PlayerState
         {
             get
@@ -82,9 +74,7 @@ namespace AIMP.NET.RemoteAPI
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить режим MUTE
-        /// </summary>
+        /// <see cref="IAimpRemote.IsMuteEnabled"/>
         public bool IsMuteEnabled
         {
             get
@@ -94,14 +84,11 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_MUTE,
-                    (IntPtr)Convert.ToInt32(value));
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_MUTE, (IntPtr)Convert.ToInt32(value));
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить режим записи радиостанции
-        /// </summary>
+        /// <see cref="IAimpRemote.IsRadioCapEnabled"/>
         public bool IsRadioCapEnabled
         {
             get
@@ -111,14 +98,11 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_RADIOCAP,
-                    (IntPtr)Convert.ToInt32(value));
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_RADIOCAP, (IntPtr)Convert.ToInt32(value));
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить режим Repeat
-        /// </summary>
+        /// <see cref="IAimpRemote.IsRepeatEnabled"/>
         public bool IsRepeatEnabled
         {
             get
@@ -128,14 +112,11 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_TRACK_REPEAT,
-                    (IntPtr)Convert.ToInt32(value));
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_TRACK_REPEAT, (IntPtr)Convert.ToInt32(value));
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить режим Shuffle
-        /// </summary>
+        /// <see cref="IAimpRemote.IsShuffleEnabled"/>
         public bool IsShuffleEnabled
         {
             get
@@ -145,31 +126,21 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_TRACK_SHUFFLE,
-                    (IntPtr)Convert.ToInt32(value));
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_TRACK_SHUFFLE, (IntPtr)Convert.ToInt32(value));
             }
         }
 
-        /// <summary>
-        /// Возвращает версию плеера
-        /// </summary>
+        /// <see cref="IAimpRemote.Version"/>
         public AimpVersion Version
         {
             get
             {
-                //if (_aimpVersion == null)
-                //{
                 IntPtr result = GetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_VERSION);
-                //_aimpVersion = new AimpVersion((int)result);
                 return new AimpVersion((int)result);
-                //}
-                //return _aimpVersion;
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить полноэкранный режим визуализации
-        /// </summary>
+        /// <see cref="IAimpRemote.IsVisualInFullScreen"/>
         public bool IsVisualInFullScreen
         {
             get
@@ -179,14 +150,11 @@ namespace AIMP.NET.RemoteAPI
             }
             set
             {
-                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_VISUAL_FULLSCREEN,
-                    (IntPtr)Convert.ToInt32(value));
+                SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty.AIMP_RA_PROPERTY_VISUAL_FULLSCREEN, (IntPtr)Convert.ToInt32(value));
             }
         }
 
-        /// <summary>
-        /// Свойство, позволяющее узнать/установить громкость плеера
-        /// </summary>
+        /// <see cref="IAimpRemote.Volume"/>
         public int Volume
         {
             get
@@ -200,169 +168,167 @@ namespace AIMP.NET.RemoteAPI
             }
         }
 
-
-        public bool IsStarted { get { return AimpHwnd != IntPtr.Zero; } }
         #endregion Player Properties
 
-        #region AIMP Commands =================================================
+        /// <see cref="IAimpRemote.IsStarted"/>
+        public bool IsStarted { get { return AimpHwnd != IntPtr.Zero; } }
 
+        #region AIMP Commands
+
+        /// <see cref="IAimpRemote.RegisterNotify"/>
         public void RegisterNotify()
         {
-            if (this.IsStarted)
+            if (IsStarted)
             {
-                Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND,
-                    (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_REGISTER_NOTIFY, _hostHandle);
-                this._isRegisteredForNotifications = true;
+                Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_REGISTER_NOTIFY, _hostHandle);
+                _isRegisteredForNotifications = true;
             }
-            this._isRegisteredForNotifications = false;
+            _isRegisteredForNotifications = false;
         }
 
+        /// <see cref="IAimpRemote.UnRegisterNotify"/>
         public void UnRegisterNotify()
         {
-            Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND,
-                (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_UNREGISTER_NOTIFY, _hostHandle);
-            this._isRegisteredForNotifications = false;
+            Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_UNREGISTER_NOTIFY, _hostHandle);
+            _isRegisteredForNotifications = false;
         }
 
-
+        /// <see cref="IAimpRemote.ExecuteAddFilesDialog"/>
         public void ExecuteAddFilesDialog()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_ADD_FILES);
         }
 
+        /// <see cref="IAimpRemote.ExecuteAddFoldersDialog"/>
         public void ExecuteAddFoldersDialog()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_ADD_FOLDERS);
         }
 
+        /// <see cref="IAimpRemote.ExecuteAddPlaylistsDialog"/>
         public void ExecuteAddPlaylistsDialog()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_ADD_PLAYLISTS);
         }
 
+        /// <see cref="IAimpRemote.ExecuteAddUrlDialog"/>
         public void ExecuteAddUrlDialog()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_ADD_URL);
         }
 
+        /// <see cref="IAimpRemote.SendAlbumArtRequest"/>
         public void SendAlbumArtRequest()
         {
-            if (Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND,
-                        (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_GET_ALBUMART, _hostHandle) == IntPtr.Zero)
+            if (Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_GET_ALBUMART, _hostHandle) == IntPtr.Zero)
             {
                 //Clear current album art
-                AlbumArtChanged.Invoke(this, new AimpEventArgs<Image>(null));
+                AlbumArtChanged?.Invoke(this, new AimpEventArgs<Image>(null));
             }
         }
 
+        /// <see cref="IAimpRemote.Next"/>
         public void Next()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_NEXT);
         }
 
+        /// <see cref="IAimpRemote.Prev"/>
         public void Prev()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_PREV);
         }
 
-        //Если плеер остановлен - начинает воспроизведение.
-        //Если плеер на паузе - продолжает воспроизведение.
-        //Если плеер проигрывает трек - начинает трек с начала. 
+        /// <see cref="IAimpRemote.Play"/>
         public void Play()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_PLAY);
         }
 
-        //Если плеер проигрывает трек - ставит на паузу.
-        //Если плеер на паузе - продолжает воспроизведение.
+        /// <see cref="IAimpRemote.Pause"/>
         public void Pause()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_PAUSE);
         }
 
-        //Если плеер остановлен - начинает воспроизведение.
-        //Если плеер на паузе - продолжает воспроизведение.
-        //Если плеер проигрывает трек - ставит на паузу.
+        /// <see cref="IAimpRemote.PlayOrPause"/>
         public void PlayOrPause()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_PLAYPAUSE);
         }
 
+        /// <see cref="IAimpRemote.Stop"/>
         public void Stop()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_STOP);
         }
 
-        /// <summary>
-        /// Закрыть программу
-        /// </summary>
+        /// <see cref="IAimpRemote.Close"/>
         public void Close()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_QUIT);
             _isRegisteredForNotifications = false;
         }
 
-        /// <summary>
-        /// Следующая визуализация
-        /// </summary>
+        /// <see cref="IAimpRemote.NextVisualization"/>
         public void NextVisualization()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_VISUAL_NEXT);
         }
 
-        /// <summary>
-        /// Предыдущая визуализация
-        /// </summary>
+        /// <see cref="IAimpRemote.PrevVisualization"/>
         public void PrevVisualization()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_VISUAL_PREV);
         }
 
-        /// <summary>
-        /// Запускает визуализацию, выбранную до этого пользователем. Если визуализации нет - запускает первую. 
-        /// </summary>
+        /// <see cref="IAimpRemote.StartVisualization"/>
         public void StartVisualization()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_VISUAL_START);
         }
 
-        /// <summary>
-        /// Выключает визуализацию
-        /// </summary>
+        /// <see cref="IAimpRemote.StopVisualization"/>
         public void StopVisualization()
         {
             SendCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_VISUAL_STOP);
         }
 
+        /// <see cref="IAimpRemote.ExecuteOpenFilesDialog"/>
         public void ExecuteOpenFilesDialog()
         {
             PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FILES);
         }
 
+        /// <see cref="IAimpRemote.ExecuteOpenFoldersDialog"/>
         public void ExecuteOpenFoldersDialog()
         {
             PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_FOLDERS);
         }
 
+        /// <see cref="IAimpRemote.ExecuteOpenPlaylistsDialog"/>
         public void ExecuteOpenPlaylistsDialog()
         {
             PostCommand(AimpRemoteNetApi.AimpRemoteCommand.AIMP_RA_CMD_OPEN_PLAYLISTS);
         }
 
+        /// <see cref="IAimpRemote.ShowHide"/>
         public void ShowHide()
         {
             Win32.SendMessage(AimpHwnd, Win32.WM_SYSCOMMAND, (IntPtr)Win32.SC_RESTORE, IntPtr.Zero);
         }
+
         #endregion Commands
 
-        #region AIMP Events ===================================================
+        #region AIMP Events
 
+        /// <see cref="IAimpRemote.ProcessWndMessage"/>
         public bool ProcessWndMessage(int message, IntPtr wParam, IntPtr lParam)
         {
             switch (message)
             {
                 case AimpRemoteNetApi.WM_AIMP_NOTIFY:
-                    ProcessWndMessages(wParam, lParam);
+                    ProcessAimpWndMessages(wParam, lParam);
                     return true;
                 case Win32.WM_COPYDATA:
                     OnCopyDataMessage(lParam);
@@ -371,16 +337,21 @@ namespace AIMP.NET.RemoteAPI
             return false;
         }
 
-
+        /// <see cref="IAimpRemote.TrackStarted"/>
         public event AimpEventHandler<AimpTrackInfo> TrackStarted;
+
+        /// <see cref="IAimpRemote.TrackInfoChanged"/>
         public event AimpEventHandler<AimpTrackInfo> TrackInfoChanged;
+
+        /// <see cref="IAimpRemote.AimpPropertyChanged"/>
         public event AimpEventHandler<AimpPropertyType> AimpPropertyChanged;
+
+        /// <see cref="IAimpRemote.AlbumArtChanged"/>
         public event AimpEventHandler<Image> AlbumArtChanged;
 
         #endregion Events
 
-        // ============================================================
-
+        /// <see cref="IAimpRemote.CurrentTrackInfo"
         public AimpTrackInfo CurrentTrackInfo
         {
             get
@@ -392,23 +363,16 @@ namespace AIMP.NET.RemoteAPI
 
                 try
                 {
-                    AFile = Win32.OpenFileMapping(
-                        (uint)Win32.FileMapAccess.FileMapRead,
-                        true,
-                        AimpRemoteNetApi.AIMPRemoteAccessClass);
+                    AFile = Win32.OpenFileMapping((uint)Win32.FileMapAccess.FileMapRead, true, AimpRemoteNetApi.AIMPRemoteAccessClass);
 
                     if (AFile == IntPtr.Zero) return AimpTrackInfo.EmptyAimpTrackInfo;
 
                     IntPtr AInfo = IntPtr.Zero;
                     try
                     {
-                        AInfo = Win32.MapViewOfFile(AFile,
-                            Win32.FileMapAccess.FileMapRead,
-                            0, 0,
-                            (UIntPtr)AimpRemoteNetApi.AIMPRemoteAccessMapFileSize);
+                        AInfo = Win32.MapViewOfFile(AFile, Win32.FileMapAccess.FileMapRead, 0, 0, (UIntPtr)AimpRemoteNetApi.AIMPRemoteAccessMapFileSize);
 
-                        AimpRemoteNetApi.AimpRemoteFileInfoStruct sInfo = (AimpRemoteNetApi.AimpRemoteFileInfoStruct)
-                            Marshal.PtrToStructure(AInfo, typeof(AimpRemoteNetApi.AimpRemoteFileInfoStruct));
+                        var sInfo = (AimpRemoteNetApi.AimpRemoteFileInfoStruct)Marshal.PtrToStructure(AInfo, typeof(AimpRemoteNetApi.AimpRemoteFileInfoStruct));
 
                         return CreateAimpTrackInfo(AInfo, sInfo);
                     }
@@ -456,12 +420,12 @@ namespace AIMP.NET.RemoteAPI
             return aimpTrackInfo;
         }
 
-        #endregion
+        #endregion IAimpRemote Implementation
 
-        #region Private helper methods ========================================
+        #region Private helper methods
 
         /// <summary>
-        /// Get AIMP window HANDLE
+        /// Get AIMP window handle
         /// </summary>
         private IntPtr AimpHwnd
         {
@@ -469,10 +433,10 @@ namespace AIMP.NET.RemoteAPI
         }
 
         /// <summary>
-        /// Вспомогательный метод для отправки сообщений плееру с целью получить значение указанного свойства
+        /// Helper method to send messages to the player in order to get the specified property value
         /// </summary>
-        /// <param name="propertyId">Свойство, значение которого необходимо получить</param>
-        /// <returns>Значение свойства</returns>
+        /// <param name="propertyId">The property ID</param>
+        /// <returns>The property value</returns>
         private IntPtr GetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty propertyId)
         {
             return Win32.SendMessage(AimpHwnd,
@@ -482,10 +446,10 @@ namespace AIMP.NET.RemoteAPI
         }
 
         /// <summary>
-        /// Вспомогательный метод для отправки сообщений плееру с целью установить значение указанного свойства
+        /// Helper method to send messages to the player in order to set the specified property
         /// </summary>
-        /// <param name="propertyId">Свойство, значение которого нужно установить</param>
-        /// <param name="value">Значение свойства</param>
+        /// <param name="propertyId">The property ID</param>
+        /// <param name="value">The property value</param>
         private void SetPropertyValue(AimpRemoteNetApi.AimpRemoteProperty propertyId, IntPtr value)
         {
             Win32.SendMessage(AimpHwnd,
@@ -495,59 +459,59 @@ namespace AIMP.NET.RemoteAPI
         }
 
         /// <summary>
-        /// Вспомогательный метод для отправки сообщений плееру с целью вызвать указанную комманду
+        /// Helper method to send messages to the player in order to call the specified command
         /// </summary>
-        /// <param name="commandId">Идентификатор комманды</param>
+        /// <param name="commandId">The command ID</param>
         private void SendCommand(AimpRemoteNetApi.AimpRemoteCommand commandId)
         {
             Win32.SendMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)commandId, IntPtr.Zero);
         }
 
         /// <summary>
-        /// Вспомогательный метод для отправки post-сообщений плееру с целью вызвать указанную комманду
+        /// Helper method to send post-messages to the player in order to call the specified command
         /// </summary>
-        /// <param name="commandId">Идентификатор комманды</param>
+        /// <param name="commandId">The command ID</param>
         private void PostCommand(AimpRemoteNetApi.AimpRemoteCommand commandId)
         {
             Win32.PostMessage(AimpHwnd, AimpRemoteNetApi.WM_AIMP_COMMAND, (IntPtr)commandId, IntPtr.Zero);
         }
 
         /// <summary>
-        /// Process events from AIMP
+        /// Process windows messages from AIMP
         /// </summary>
         /// <param name="wParam">wParam</param>
         /// <param name="lParam">lParam</param>
-        private void ProcessWndMessages(IntPtr wParam, IntPtr lParam)
+        private void ProcessAimpWndMessages(IntPtr wParam, IntPtr lParam)
         {
             switch (wParam.ToInt32())
             {
                 case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_TRACK_START:
-                {
-                    TrackStarted?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
-                    break;
-                }
-                case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_TRACK_INFO:
-                {
-                    switch (lParam.ToInt32())
                     {
-                        case 0:
-                            {
-                                TrackInfoChanged?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
-                                break;
-                            }
-                        case 1:
-                            {
-                                SendAlbumArtRequest();
-                                break;
-                            }
+                        TrackStarted?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(CurrentTrackInfo));
+                        break;
                     }
-                    break;
-                }
+                case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_TRACK_INFO:
+                    {
+                        switch (lParam.ToInt32())
+                        {
+                            case 0:
+                                {
+                                    TrackInfoChanged?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(CurrentTrackInfo));
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    SendAlbumArtRequest();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
                 case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_PROPERTY:
-                {
-                    AimpPropertyChanged?.Invoke(this, new AimpEventArgs<AimpPropertyType>(ConvertToAimpPropertyType(lParam)));
-                    break;
-                }
+                    {
+                        AimpPropertyChanged?.Invoke(this, new AimpEventArgs<AimpPropertyType>(ConvertToAimpPropertyType(lParam)));
+                        break;
+                    }
             }
         }
 
@@ -557,7 +521,7 @@ namespace AIMP.NET.RemoteAPI
         /// <param name="lParam"></param>
         private void OnCopyDataMessage(IntPtr lParam)
         {
-            Win32.COPYDATASTRUCT cds = (Win32.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(Win32.COPYDATASTRUCT));
+            var cds = (Win32.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(Win32.COPYDATASTRUCT));
 
             if (cds.dwData.ToInt32() != AimpRemoteNetApi.WM_AIMP_COPYDATA_ALBUMART_ID)
             {
@@ -617,11 +581,11 @@ namespace AIMP.NET.RemoteAPI
             return AimpPropertyType.None;
         }
 
-        #endregion
+        #endregion Private helper methods
 
         public void Dispose()
         {
-            if (_isRegisteredForNotifications && this.IsStarted)
+            if (_isRegisteredForNotifications && IsStarted)
             {
                 UnRegisterNotify();
             }

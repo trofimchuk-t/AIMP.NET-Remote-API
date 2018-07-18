@@ -65,17 +65,20 @@ namespace AIMP.NET.RemoteAPI
         /// Get current track information
         /// </summary>
         /// <seealso cref="AimpTrackInfo"/>
-        /// <remarks>Return AimpTrackInfo.EmptyAimpTrackInfo (not null), if player is stopped</remarks>
+        /// <remarks>Return <cref="AimpTrackInfo.EmptyAimpTrackInfo" />, if player is stopped</remarks>
         AimpTrackInfo CurrentTrackInfo { get; }
 
         /// <summary>
-        /// Return true, if AIMP is started
+        /// Get a value indicated that AIMP is started
         /// </summary>
         bool IsStarted { get; }
 
         #endregion
 
         #region AIMP Commands
+        /// <summary>
+        /// Register notification hook to receive change notifications
+        /// </summary>
         void RegisterNotify();
 
         /// <summary>
@@ -174,11 +177,18 @@ namespace AIMP.NET.RemoteAPI
         /// </summary>
         void ExecuteOpenPlaylistsDialog();
 
-        //void ShowHide();
-        //bool Start(string aimpName);
+        /// <summary>
+        /// Show or hide the player window
+        /// </summary>
+        void ShowHide();
+
+        //bool TryStart(string aimpName);
         #endregion
 
         #region AIMP Events
+        /// <summary>
+        /// Process windows window messages
+        /// </summary>
         bool ProcessWndMessage(int message, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
@@ -200,7 +210,6 @@ namespace AIMP.NET.RemoteAPI
         /// Event occurs when Album Art has been changed 
         /// </summary>
         event AimpEventHandler<Image> AlbumArtChanged;
-
         #endregion
     }
 }

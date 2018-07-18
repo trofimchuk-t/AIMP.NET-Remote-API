@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text;
 
 namespace AIMP.NET.RemoteAPI
 {
     public class AimpTrackInfo
     {
-        private static AimpTrackInfo _emptyAimpTrackInfo;
+        private static AimpTrackInfo emptyAimpTrackInfo;
 
         public bool Active { get; set; }
         public int BitRate { get; set; }
@@ -24,6 +23,6 @@ namespace AIMP.NET.RemoteAPI
         public string Genre { get; set; }
 
         public static AimpTrackInfo EmptyAimpTrackInfo
-        { get { return _emptyAimpTrackInfo ?? (_emptyAimpTrackInfo = new AimpTrackInfo()); } }
+        { get { return emptyAimpTrackInfo ?? (emptyAimpTrackInfo = new AimpTrackInfo()); } }
     }
 }
