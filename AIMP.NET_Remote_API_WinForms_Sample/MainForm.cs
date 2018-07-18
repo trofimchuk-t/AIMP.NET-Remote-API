@@ -13,11 +13,10 @@ namespace AimpApi_Remote_test
         private Timer timer;
         private bool isRegistered;
 
-        public MainForm()
+        public MainForm(IAimpRemote aimp)
         {
+            this.aimp = aimp;
             InitializeComponent();
-            aimp = new AimpRemote(this.Handle);
-            //aimp = new AimpRemote();
 
             timer = new Timer();
             timer.Interval = 1000;
@@ -72,15 +71,6 @@ namespace AimpApi_Remote_test
 
                 isRegistered = !isRegistered;
             }
-        }
-
-        protected override void DefWndProc(ref Message m)
-        {
-            if (aimp != null)
-            {
-                aimp.ProcessWndMessage(m.Msg, m.WParam, m.LParam);
-            }
-            base.DefWndProc(ref m);
         }
 
         #region Commands
@@ -193,7 +183,6 @@ namespace AimpApi_Remote_test
             }
         }
 
-
         private void trBarVolume_VallueChanged(object sender, EventArgs e)
         {
             lblVolume.Text = "Volume: " + trBarVolume.Value.ToString() + " %";
@@ -275,6 +264,5 @@ namespace AimpApi_Remote_test
                 this.Close();
             }
         }
-
     }
 }

@@ -12,13 +12,13 @@ namespace AIMP.NET.RemoteAPI
     {
         protected IntPtr _hostHandle;
         protected bool _isRegisteredForNotifications;
-        private AimpMessageOnlyWindow moWindow;
 
         public AimpRemote()
         {
-            this.moWindow = new AimpMessageOnlyWindow();
-            Init(this.moWindow.Handle);
-            this.moWindow.WndMessageReceived += ProcessWndMessage;
+            var moWindow = new AimpMessageOnlyWindow();
+            moWindow.WndMessageReceived += ProcessWndMessage;
+
+            Init(moWindow.Handle);
         }
 
         public AimpRemote(IntPtr hostHandle)
@@ -29,9 +29,11 @@ namespace AIMP.NET.RemoteAPI
         private void Init(IntPtr hostHandle)
         {
             _hostHandle = hostHandle;
-            if (hostHandle != IntPtr.Zero) RegisterNotify();
 
-            InitEvents();
+            if (hostHandle != IntPtr.Zero)
+            {
+                RegisterNotify();
+            }
         }
 
         #region IAimpRemote Implementation
@@ -458,14 +460,6 @@ namespace AIMP.NET.RemoteAPI
 
         #region Private helper methods ========================================
 
-        private void InitEvents()
-        {
-            TrackStarted += (s, e) => { };
-            TrackInfoChanged += (s, e) => { };
-            AimpPropertyChanged += (s, e) => { };
-            AlbumArtChanged += (s, e) => { };
-        }
-
         /// <summary>
         /// Get AIMP window HANDLE
         /// </summary>
@@ -528,25 +522,32 @@ namespace AIMP.NET.RemoteAPI
             switch (wParam.ToInt32())
             {
                 case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_TRACK_START:
-                    TrackStarted.Invoke(this,
-                        new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
+                {
+                    TrackStarted?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
                     break;
+                }
                 case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_TRACK_INFO:
+                {
                     switch (lParam.ToInt32())
                     {
                         case 0:
-                            TrackInfoChanged.Invoke(this,
-                                new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
-                            break;
+                            {
+                                TrackInfoChanged?.Invoke(this, new AimpEventArgs<AimpTrackInfo>(this.CurrentTrackInfo));
+                                break;
+                            }
                         case 1:
-                            //TrackCoverArtChanged.Invoke(this, EventArgs.Empty);
-                            SendAlbumArtRequest();
-                            break;
+                            {
+                                SendAlbumArtRequest();
+                                break;
+                            }
                     }
                     break;
+                }
                 case (int)AimpRemoteNetApi.AimpRemoteEvent.AIMP_RA_NOTIFY_PROPERTY:
-                    AimpPropertyChanged.Invoke(this, new AimpEventArgs<AimpPropertyType>(ConvertToAimpPropertyType(lParam)));
+                {
+                    AimpPropertyChanged?.Invoke(this, new AimpEventArgs<AimpPropertyType>(ConvertToAimpPropertyType(lParam)));
                     break;
+                }
             }
         }
 
@@ -557,10 +558,15 @@ namespace AIMP.NET.RemoteAPI
         private void OnCopyDataMessage(IntPtr lParam)
         {
             Win32.COPYDATASTRUCT cds = (Win32.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(Win32.COPYDATASTRUCT));
-            if (cds.dwData.ToInt32() != AimpRemoteNetApi.WM_AIMP_COPYDATA_ALBUMART_ID) return;
+
+            if (cds.dwData.ToInt32() != AimpRemoteNetApi.WM_AIMP_COPYDATA_ALBUMART_ID)
+            {
+                return;
+            }
 
             var image = CreateAlbumArt(cds);
-            AlbumArtChanged.Invoke(this, new AimpEventArgs<Image>(image));
+
+            AlbumArtChanged?.Invoke(this, new AimpEventArgs<Image>(image));
         }
 
         /// <summary>

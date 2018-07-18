@@ -4,16 +4,16 @@
     {
         public AimpVersion(int rawValue)
         {
-            Build = (rawValue & 0xffff);               // LOWORD of LRESULT
-            Version = ((rawValue >> 16) & 0xffff);     // HIWORD of LRESULT
+            Build = rawValue & 0xffff;               // LOWORD of LRESULT
+            Version = (rawValue >> 16) & 0xffff;     // HIWORD of LRESULT
         }
 
-        public int Version { get; private set; }
-        public int Build { get; private set; }
+        public int Version { get; }
+        public int Build { get; }
 
         public override string ToString()
         {
-            return string.Format("v{0}.{1}, build {2}", Version / 100, Version % 100, Build);
+            return $"v{Version / 100}.{Version % 100}, build {Build}";
         }
     }
 }

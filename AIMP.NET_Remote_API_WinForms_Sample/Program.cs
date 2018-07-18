@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AIMP.NET.RemoteAPI;
+using System;
 using System.Windows.Forms;
 
 namespace AimpApi_Remote_test
@@ -16,7 +14,7 @@ namespace AimpApi_Remote_test
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(new AimpRemote()));
         }
     }
 }

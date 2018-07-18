@@ -1,7 +1,5 @@
 *.suo
 *.user
-AIMP.NET_Remote_API/bin/
-AIMP.NET_Remote_API/obj/
-AIMP.NET_Remote_API_WinForms_Sample/bin/
-AIMP.NET_Remote_API_WinForms_Sample/obj/
-ConsoleApplication1/
+.vs/
+bin/
+obj/
