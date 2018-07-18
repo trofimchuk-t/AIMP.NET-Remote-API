@@ -40,7 +40,7 @@ namespace AimpApi_Remote_test
 
         void aimp_TrackStarted(object sender, AimpEventArgs<AimpTrackInfo> e)
         {
-            var info = e.GetValue;
+            var info = e.Value;
             lblDuration.Text = info.Duration.ToString("hh\\:mm\\:ss");
         }
 
@@ -144,12 +144,12 @@ namespace AimpApi_Remote_test
 
         private void aimp_AlbumArtLoaded(object sender, AimpEventArgs<Image> eventArgs)
         {
-            iAlbumArt.Image = eventArgs.GetValue;
+            iAlbumArt.Image = eventArgs.Value;
         }
 
         private void OnAimpPropertyChanged(object sender, AimpEventArgs<AimpPropertyType> eventArgs)
         {
-            switch (eventArgs.GetValue)
+            switch (eventArgs.Value)
             {
                 case AimpPropertyType.Volume:
                     trBarVolume.Value = aimp.Volume;
